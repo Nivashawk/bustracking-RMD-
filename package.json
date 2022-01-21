@@ -1,0 +1,28 @@
+{
+  "name": "bustracking",
+  "version": "0.1.0",
+  "description": "college project bustracking",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZEDBYTE-CROP/bustracking-RMD-.git"
+  },
+  "author": "Nivas s",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZEDBYTE-CROP/bustracking-RMD-/issues"
+  },
+  "homepage": "https://github.com/ZEDBYTE-CROP/bustracking-RMD-#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "mongodb": "^4.3.1",
+    "mongoose": "^6.1.7",
+    "multer": "^1.4.4",
+    "multer-s3": "^2.10.0",
+    "validatorjs": "^3.22.1"
+  }
+}
