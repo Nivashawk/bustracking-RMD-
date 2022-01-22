@@ -7,6 +7,7 @@ router.post("/create", BusController.create);
 router.post("/detail", BusController.busDetail);
 router.post("/edit", BusController.editBusDetail);
 router.post("/list", BusController.busList);
+router.post("/assignedlist", BusController.assignedBusList);
 
 
 module.exports = router;

@@ -18,6 +18,14 @@ const busSchema = mongoose.Schema({
   busDriverName: {
     type: String,
     require: true,
+  },
+  busDriverId: {
+    type: String,
+    require: true,
+  },
+  isAssigned: {
+    type: Boolean,
+    require: true,
   }
 });
 

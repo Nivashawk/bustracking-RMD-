@@ -9,15 +9,24 @@ const noResult = (name) => {
   const invalidCredentials = (idNumber, password) => {
     return `please check the credentials idNumber: ${idNumber}, password: ${password}`;
   };
+
   const getAll = (name) => {
     return `list of all ${name} fetched successfully`;
+  };
+
+  const notAssigned = (name) => {
+    return `driver ${name} is not assigned to any bus`;
   };
 
   const getOne = (name) => {
     return `${name} fetched successfully`;
   };
 
-  const updateOne = (name) => {
+  const emailSent = () => {
+    return `email sent successfully`;
+  };
+
+  const updateOne = (name="") => {
     return `${name} document updated successfully`;
   };
 
@@ -38,6 +47,8 @@ const noResult = (name) => {
     invalidCredentials,
     getAll,
     getOne,
+    notAssigned,
+    emailSent,
     updateOne,
     uploadImage,
     alreadyExits,

@@ -23,6 +23,10 @@ const driverSchema = mongoose.Schema({
     type: String,
     require: true,
   },
+  isAssigned: {
+    type: Boolean,
+    require: true,
+  }
 });
 
 const DriverModel = mongoose.model("driver", driverSchema, collectionName);

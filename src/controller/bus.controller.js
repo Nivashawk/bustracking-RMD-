@@ -1,4 +1,5 @@
 const BusModel = require("../model/bus.model");
+const DriverModel = require("../model/driver.model");
 const response = require("../response/response");
 const messageResponse = require("../response/messages");
 const requiredFields = require("../model/fields");
@@ -10,7 +11,9 @@ const create = async (req, res) => {
     busNumber: req.body.busNumber,
     busIdNumber: req.body.busIdNumber,
     busRoute: req.body.busRoute,
-    busDriverName: req.body.busDriverName
+    busDriverName: "",
+    busDriverId: "",
+    isAssigned: false
   });
   try {
     const totalNumberOfDocuments = await BusModel.estimatedDocumentCount();
@@ -48,13 +51,13 @@ const busDetail = async (req, res) => {
       );
       if (result.length !== 0) {
         const responseObject = response.success(
-          messageResponse.getOne("bus"),
+          messageResponse.getOne("bus detail"),
           result
         );
         return res.status(200).json(responseObject);
       } else {
         const responseObject = response.error(
-          messageResponse.noResult("bus")
+          messageResponse.noResult("bus detail")
         );
         res.status(200).json(responseObject);
       }
@@ -140,9 +143,56 @@ const busList = async (req, res) => {
     }
   };
 
+// ### list of all assignedBuses in the collection ###
+
+const assignedBusList = async (req, res) => {
+  try {
+    const { page = 1, limit = 10, busIdNumber } = req.body;
+    if (busIdNumber === null || busIdNumber === "") {
+      const result = await BusModel.find({"isAssigned" : true})
+        .select(requiredFields.busFields)
+        .limit(limit * 1)
+        .skip((page - 1) * limit);
+      if (result.length !== 0) {
+        const responseObject = response.success(
+          messageResponse.getAll("assigned buses"),
+          result,
+          result.length
+        );
+        return res.status(200).json(responseObject);
+      } else {
+        const responseObject = response.error(
+          messageResponse.noResult("assigned buses")
+        );
+        res.status(200).json(responseObject);
+      }
+    } else {
+      const result = await BusModel.find(
+        {"busIdNumber" : req.body.busIdNumber, "isAssigned" : true}
+      ).select(requiredFields.busFields);
+      if (result.length !== 0) {
+        const responseObject = response.success(
+          messageResponse.getOne("assigned buses"),
+          result
+        );
+        return res.status(200).json(responseObject);
+      } else {
+        const responseObject = response.error(
+          messageResponse.noResult("assigned buses")
+        );
+        res.status(200).json(responseObject);
+      }
+    }
+  } catch (error) {
+    const responseObject = response.error(error.message);
+    res.status(200).json(responseObject);
+  }
+};
+
 module.exports = {
     create,
     busDetail,
     editBusDetail,
-    busList
+    busList,
+    assignedBusList
   };

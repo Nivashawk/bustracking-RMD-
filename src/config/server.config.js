@@ -9,4 +9,6 @@ module.exports = {
   studentCollection: "Student",
   driverCollection: "Driver",
   busCollection: "Bus",
+  email : "krithickvenketesanguru@gmail.com",
+  password : "Krithick007"
 };

@@ -52,7 +52,7 @@ const login = async (req, res) => {
          {"$and" : [{"userName" : req.body.userName},{"password" : req.body.password}]}
         );
         if (loginWithIdNumberAndPassword.length !== 0) {
-            const responseObject = response.success(messageResponse.login);
+            const responseObject = response.success(messageResponse.login, result= { "idNumber" : loginWithIdNumberAndPassword[0]._id, "type": "admin"});
             return res.status(200).json(responseObject);
         } else {
           const responseObject = response.error(

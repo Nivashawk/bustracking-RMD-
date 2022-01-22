@@ -3,6 +3,7 @@ const busFields = {
     busIdNumber: 1,
     busRoute: 1,
     busDriverName: 1,
+    isAssigned: 1
   };
   
   const driverFields = {

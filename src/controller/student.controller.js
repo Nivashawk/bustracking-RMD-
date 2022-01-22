@@ -54,7 +54,7 @@ const login = async (req, res) => {
          {"$and" : [{"idNumber" : req.body.idNumber},{"password" : req.body.password}]}
         );
         if (loginWithIdNumberAndPassword.length !== 0) {
-            const responseObject = response.success(messageResponse.login);
+            const responseObject = response.success(messageResponse.login, result= { "idNumber" : loginWithIdNumberAndPassword[0].idNumber, "type": "student"});
             return res.status(200).json(responseObject);
         } else {
           const responseObject = response.error(
@@ -72,8 +72,34 @@ const login = async (req, res) => {
     }
   };
 
+// ### search students Details using busId in the collection ###
+
+const studentDetail = async (req, res) => {
+  try {
+    const result = await StudentModel.find(
+      {"idNumber" : req.body.idNumber}
+    );
+    if (result.length !== 0) {
+      const responseObject = response.success(
+        messageResponse.getOne("student detail"),
+        result
+      );
+      return res.status(200).json(responseObject);
+    } else {
+      const responseObject = response.error(
+        messageResponse.noResult("student detail")
+      );
+      res.status(200).json(responseObject);
+    }
+  } catch (error) {
+    const responseObject = response.error(error.message);
+    res.status(200).json(responseObject);
+  }
+};
+
 
 module.exports = {
     create,
-    login
+    login,
+    studentDetail
   };
