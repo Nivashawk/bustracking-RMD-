@@ -3,7 +3,13 @@ const busFields = {
     busIdNumber: 1,
     busRoute: 1,
     busDriverName: 1,
+    busDriverId: 1,
     isAssigned: 1
+  };
+
+  const busFieldsNeedIds = {
+    busNumber: 1,
+    busIdNumber: 1
   };
   
   const driverFields = {
@@ -14,6 +20,7 @@ const busFields = {
   
   module.exports = {
     busFields,
-    driverFields
+    driverFields,
+    busFieldsNeedIds
   };
   

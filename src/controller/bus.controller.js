@@ -69,6 +69,7 @@ const busDetail = async (req, res) => {
 
 // ### search Bus Details using busId in the collection ###
 
+
 const editBusDetail = async (req, res) => {
     try {
       const result = await BusModel.updateOne(
@@ -101,7 +102,7 @@ const editBusDetail = async (req, res) => {
 
 const busList = async (req, res) => {
     try {
-      const { page = 1, limit = 10, busIdNumber } = req.body;
+      const { page = 1, limit = 0, busIdNumber } = req.body;
       if (busIdNumber === null || busIdNumber === "") {
         const result = await BusModel.find({})
           .select(requiredFields.busFields)

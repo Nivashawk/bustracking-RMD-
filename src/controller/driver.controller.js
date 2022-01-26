@@ -92,13 +92,16 @@ const login = async (req, res) => {
 
 const driverDetail = async (req, res) => {
   try {
-    const result = await DriverModel.find(
-      {"idNumber" : req.body.idNumber}
-    );
-    if (result.length !== 0) {
+    const getDriverDetails = await DriverModel.find(
+      {"idNumber" : req.body.idNumber, "isAssigned" : true}
+    ).select(requiredFields.driverFields);
+    if (getDriverDetails.length !== 0) {
+      const getBusDetails = await BusModel.find(
+        {"busDriverId" : req.body.idNumber}
+      ).select(requiredFields.busFieldsNeedIds)
       const responseObject = response.success(
         messageResponse.getOne("driver detail"),
-        result
+        result = {...getDriverDetails[0]._doc, ...getBusDetails[0]._doc}
       );
       return res.status(200).json(responseObject);
     } else {
