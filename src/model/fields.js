@@ -16,6 +16,7 @@ const busFields = {
     name: 1,
     phoneNumber: 1,
     idNumber: 1,
+    isStarted: 1
   };
   
   module.exports = {

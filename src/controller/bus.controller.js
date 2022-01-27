@@ -109,10 +109,14 @@ const busList = async (req, res) => {
           .limit(limit * 1)
           .skip((page - 1) * limit);
         if (result.length !== 0) {
+          const totalDocuments = await BusModel.countDocuments()
+          const checkRemainingDocumentCount = ((totalDocuments-((page - 1) * limit)))
+          isNext = (checkRemainingDocumentCount < limit) ? false : true
           const responseObject = response.success(
             messageResponse.getAll("buses"),
             result,
-            result.length
+            result.length,
+            isNext
           );
           return res.status(200).json(responseObject);
         } else {
@@ -155,10 +159,14 @@ const assignedBusList = async (req, res) => {
         .limit(limit * 1)
         .skip((page - 1) * limit);
       if (result.length !== 0) {
+        const totalDocuments = await BusModel.countDocuments()
+        const checkRemainingDocumentCount = ((totalDocuments-((page - 1) * limit)))
+        isNext = (checkRemainingDocumentCount < limit) ? false : true
         const responseObject = response.success(
           messageResponse.getAll("assigned buses"),
           result,
-          result.length
+          result.length,
+          isNext
         );
         return res.status(200).json(responseObject);
       } else {

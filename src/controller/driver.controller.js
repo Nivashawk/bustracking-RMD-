@@ -15,7 +15,8 @@ const create = async (req, res) => {
     idNumber: req.body.idNumber,
     busNumber: req.body.busNumber,
     password: req.body.password,
-    isAssigned: false
+    isAssigned: false,
+    isStarted: false
   });
   try {
     const totalNumberOfDocuments = await DriverModel.estimatedDocumentCount();
@@ -116,6 +117,31 @@ const driverDetail = async (req, res) => {
   }
 };
 
+// ### update driver trip status ###
+
+const driverTripStatus = async (req, res) => {
+  try {
+    const getDriverDetails = await DriverModel.updateOne(
+      {"idNumber" : req.body.idNumber}, 
+      {"$set" : {"isStarted" : req.body.isStarted}}
+    )
+    if (getDriverDetails.length !== 0) {
+      const responseObject = response.success(
+        messageResponse.updateOne("driver"),
+      );
+      return res.status(200).json(responseObject);
+    } else {
+      const responseObject = response.error(
+        messageResponse.noResult("driver")
+      );
+      res.status(200).json(responseObject);
+    }
+  } catch (error) {
+    const responseObject = response.error(error.message);
+    res.status(200).json(responseObject);
+  }
+};
+
 // ### list of all Driver in the collection ###
 
 const driverList = async (req, res) => {
@@ -126,10 +152,14 @@ const driverList = async (req, res) => {
           .limit(limit * 1)
           .skip((page - 1) * limit);
         if (result.length !== 0) {
+          const totalDocuments = await DriverModel.countDocuments()
+          const checkRemainingDocumentCount = ((totalDocuments-((page - 1) * limit)))
+          isNext = (checkRemainingDocumentCount < limit) ? false : true
           const responseObject = response.success(
             messageResponse.getAll("drivers"),
             result,
-            result.length
+            result.length,
+            isNext
           );
           return res.status(200).json(responseObject);
         } else {
@@ -233,6 +263,7 @@ module.exports = {
     create,
     login,
     driverDetail,
+    driverTripStatus,
     driverList,
     assignDriver,
     unassignDriver,

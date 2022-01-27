@@ -26,6 +26,10 @@ const driverSchema = mongoose.Schema({
   isAssigned: {
     type: Boolean,
     require: true,
+  },
+  isStarted: {
+    type: Boolean,
+    require: true,
   }
 });
 
