@@ -38,6 +38,9 @@ app.use("/admin", admin);
 app.use("/student", student);
 app.use("/driver", driver);
 app.use("/bus", bus);
+app.get('/', function (req, res) {  
+  res.send('<p>hello welcome to bustracking backend</p>');  
+  })
 
 //Listening to the server
 app.listen(port, host, function () {
