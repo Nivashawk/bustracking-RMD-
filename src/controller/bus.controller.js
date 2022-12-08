@@ -11,6 +11,7 @@ const create = async (req, res) => {
     busNumber: req.body.busNumber,
     busIdNumber: req.body.busIdNumber,
     busRoute: req.body.busRoute,
+    trackerId: req.body.trackerId,
     busDriverName: "",
     busDriverId: "",
     isAssigned: false
@@ -78,6 +79,7 @@ const editBusDetail = async (req, res) => {
             "busNumber": req.body.busNumber,
             "busIdNumber": req.body.busIdNumber,
             "busRoute": req.body.busRoute,
+            "trackerId": req.body.trackerId,
             "busDriverName": req.body.busDriverName
         }
       );

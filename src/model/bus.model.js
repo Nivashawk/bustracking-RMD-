@@ -15,6 +15,10 @@ const busSchema = mongoose.Schema({
     type: String,
     require: true,
   },
+  trackerId: {
+    type: String,
+    require: true
+  },
   busDriverName: {
     type: String,
     require: true,
