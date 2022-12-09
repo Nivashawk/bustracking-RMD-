@@ -27,6 +27,7 @@ const admin = require("./src/route/admin.route");
 const student = require("./src/route/student.route");
 const driver = require("./src/route/driver.route");
 const bus = require("./src/route/bus.route");
+const tracker = require("./src/route/tracker.route");
 
 //MiddleWare
 app.use(cors());
@@ -38,9 +39,11 @@ app.use("/admin", admin);
 app.use("/student", student);
 app.use("/driver", driver);
 app.use("/bus", bus);
-app.get('/', function (req, res) {  
-  res.send('<p>hello welcome to bustracking backend</p>');  
-  })
+app.use("/tracker", tracker);
+
+app.get("/", function (req, res) {
+  res.send("<p>hello welcome to bustracking backend</p>");
+});
 
 //Listening to the server
 app.listen(port, host, function () {
