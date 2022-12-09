@@ -1,4 +1,9 @@
-import { getFirestore, doc, GeoPoint, updateDoc } from "firebase/firestore";
+// import { getFirestore, doc, GeoPoint, updateDoc } from "firebase/firestore";
+const getFirestore = require("firebase/firestore");
+const doc = require("firebase/firestore");
+const GeoPoint = require("firebase/firestore");
+const updateDoc = require("firebase/firestore");
+
 const firebase = require("../helper/firebase.helper");
 const messageResponse = require("../response/messages");
 
@@ -25,4 +30,8 @@ const updateLocation = async (req, res) => {
   }
 };
 
-module.exports = updateLocation;
+
+module.exports = {
+  updateLocation
+};
+
