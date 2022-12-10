@@ -2,7 +2,8 @@
 // import firebase from "firebase";
 
 const config = require("../config/server.config");
-var firebase = require('firebase/app');
-const db = firebase.initializeApp(config.firebaseConfig);
+const { initializeApp } = require("firebase/app");
 
-module.exports = db;
+const db = initializeApp(config.firebaseConfig);
+
+module.exports = { db };

@@ -1,15 +1,18 @@
-// import { getFirestore, doc, GeoPoint, updateDoc } from "firebase/firestore";
-const getFirestore = require("firebase/firestore");
-const doc = require("firebase/firestore");
-const GeoPoint = require("firebase/firestore");
-const updateDoc = require("firebase/firestore");
+const {
+  getFirestore,
+  doc,
+  GeoPoint,
+  updateDoc,
+} = require("firebase/firestore");
 
-const firebase = require("../helper/firebase.helper");
+const response = require("../response/response");
+
+const { db } = require("../helper/firebase.helper");
 const messageResponse = require("../response/messages");
 
+const firestore = getFirestore(db);
 const updateLocation = async (req, res) => {
   try {
-    const firestore = getFirestore(firebase);
     const data = req.body;
     await updateDoc(doc(firestore, "Trackers", data.trackerId), {
       coordinates: new GeoPoint(data.latitude, data.longitude),
@@ -30,8 +33,6 @@ const updateLocation = async (req, res) => {
   }
 };
 
-
 module.exports = {
-  updateLocation
+  updateLocation,
 };
-
